@@ -13,12 +13,14 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '17'  # 使用 Java 17
-          distribution: 'temurin'  # 使用 Eclipse Temurin 发行版
-          java-package: 'jdk'  # 使用 JDK 包
+          java-version: '17'
+          distribution: 'temurin'
+          java-package: 'jdk'
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build --scan --warning-mode=all --stacktrace
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME_17_X64 }}
